@@ -1,5 +1,7 @@
 package com.websystique.springboot.model.country;
 
+import com.websystique.springboot.model.country.enums.Official;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
