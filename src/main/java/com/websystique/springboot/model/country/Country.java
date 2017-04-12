@@ -5,6 +5,8 @@ import com.websystique.springboot.model.country.enums.Official;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by ecjapi on 3/16/2017.
@@ -39,6 +41,12 @@ public class Country implements Serializable {
 
     @Column(name = "LocalName")
     private String localName;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="country")
+    private Set<City> cities = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="country")
+    private Set<City> countryLanguages = new HashSet<>();
 
     public String getCode() {
         return code;
@@ -110,5 +118,21 @@ public class Country implements Serializable {
 
     public void setLocalName(String localName) {
         this.localName = localName;
+    }
+
+    public Set<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(Set<City> cities) {
+        this.cities = cities;
+    }
+
+    public Set<City> getCountryLanguages() {
+        return countryLanguages;
+    }
+
+    public void setCountryLanguages(Set<City> countryLanguages) {
+        this.countryLanguages = countryLanguages;
     }
 }

@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class City implements Serializable{
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "Name")
@@ -21,6 +22,10 @@ public class City implements Serializable{
 
     @Column(name = "Population")
     private Integer population;
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "CountryCode")
+    private Country country;
 
     public Long getId() {
         return id;
@@ -52,5 +57,13 @@ public class City implements Serializable{
 
     public void setPopulation(Integer population) {
         this.population = population;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }
