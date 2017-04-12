@@ -1,5 +1,7 @@
 package com.websystique.springboot.model.country;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -24,6 +26,7 @@ public class City implements Serializable{
     private Integer population;
 
     @ManyToOne(cascade=CascadeType.ALL)
+    @JsonManagedReference
     @JoinColumn(name = "CountryCode")
     private Country country;
 

@@ -1,7 +1,5 @@
 package com.websystique.springboot.service.country;
 
-
-import com.websystique.springboot.model.User;
 import com.websystique.springboot.model.country.Country;
 
 import java.util.List;

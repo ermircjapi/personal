@@ -1,5 +1,6 @@
 package com.websystique.springboot.model.country;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.websystique.springboot.model.country.enums.Official;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name="countrylanguage")
-public class CountryLanguage implements Serializable{
+public class CountryLanguage implements Serializable {
 
     @EmbeddedId
     private CountryLanguagePK countryLanguagePK;
@@ -23,6 +24,7 @@ public class CountryLanguage implements Serializable{
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "CountryCode")
+    @JsonManagedReference
     private Country country;
 
     public Official getIsOfficial() {
