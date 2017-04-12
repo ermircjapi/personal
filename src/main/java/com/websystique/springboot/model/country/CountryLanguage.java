@@ -21,6 +21,9 @@ public class CountryLanguage implements Serializable{
     @Column(name = "Percentage")
     private Double percentage;
 
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "CountryCode")
+    private Country country;
 
     public Official getIsOfficial() {
         return isOfficial;
@@ -36,6 +39,14 @@ public class CountryLanguage implements Serializable{
 
     public void setPercentage(Double percentage) {
         this.percentage = percentage;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Embeddable
