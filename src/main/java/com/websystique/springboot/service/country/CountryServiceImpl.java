@@ -7,13 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.InvalidClassException;
-import java.io.InvalidObjectException;
 import java.util.List;
 
 
 @Service("countryService")
-@Transactional
+@Transactional(rollbackFor = Throwable.class, readOnly = true)
 public class CountryServiceImpl implements CountryService {
 
 	@Autowired
@@ -27,14 +25,17 @@ public class CountryServiceImpl implements CountryService {
 		return countryRepository.findByName(name);
 	}
 
+	@Transactional
 	public void saveCountry(Country country) {
 		countryRepository.save(country);
 	}
 
+	@Transactional
 	public void updateCountry(Country country){
 		saveCountry(country);
 	}
 
+	@Transactional
 	public void deleteCountryById(String id){
 		Country country = countryRepository.findOne(id);
 		if(country != null) {
@@ -44,6 +45,7 @@ public class CountryServiceImpl implements CountryService {
 		}
 	}
 
+	@Transactional
 	public void deleteAllCountries(){
 		countryRepository.deleteAll();
 	}

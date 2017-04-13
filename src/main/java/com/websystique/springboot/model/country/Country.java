@@ -1,7 +1,6 @@
 package com.websystique.springboot.model.country;
 
-import com.websystique.springboot.model.country.enums.Continent;
-import com.websystique.springboot.model.country.enums.Official;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,13 +15,15 @@ import java.util.Set;
 public class Country implements Serializable {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private String code;
 
     @Column(name = "Name")
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private Continent continent;
+    @Column(name="Continent", columnDefinition="enum('Asia','Europe','North America','Africa', " +
+            "'Oceania','South America','Antarctica')")
+    private String continent;
 
     @Column(name = "Region")
     private String region;
@@ -42,11 +43,13 @@ public class Country implements Serializable {
     @Column(name = "LocalName")
     private String localName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="country")
-    private Set<City> cities = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="country", fetch=FetchType.EAGER)
+    @JsonBackReference
+    private Set<City> cities;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="country")
-    private Set<City> countryLanguages = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="country", fetch=FetchType.EAGER)
+    @JsonBackReference
+    private Set<CountryLanguage> countryLanguages;
 
     public String getCode() {
         return code;
@@ -64,11 +67,11 @@ public class Country implements Serializable {
         this.name = name;
     }
 
-    public Continent getContinent() {
+    public String getContinent() {
         return continent;
     }
 
-    public void setContinent(Continent continent) {
+    public void setContinent(String continent) {
         this.continent = continent;
     }
 
@@ -128,11 +131,11 @@ public class Country implements Serializable {
         this.cities = cities;
     }
 
-    public Set<City> getCountryLanguages() {
+    public Set<CountryLanguage> getCountryLanguages() {
         return countryLanguages;
     }
 
-    public void setCountryLanguages(Set<City> countryLanguages) {
+    public void setCountryLanguages(Set<CountryLanguage> countryLanguages) {
         this.countryLanguages = countryLanguages;
     }
 }

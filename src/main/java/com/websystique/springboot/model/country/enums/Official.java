@@ -5,5 +5,5 @@ package com.websystique.springboot.model.country.enums;
  */
 public enum Official {
     T,
-    L
+    F
 }
